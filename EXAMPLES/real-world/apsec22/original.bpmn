@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_16mrr9f" targetNamespace="http://bpmn.io/schema/bpmn" exporter="bpmn-js (https://demo.bpmn.io)" exporterVersion="14.0.0">
+  <bpmn:process id="Process_1sftwr3" isExecutable="false">
+    <bpmn:startEvent id="StartEvent_1azrd1g">
+      <bpmn:outgoing>Flow_1j8h14v</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:task id="ApplyOnline" name="ApplyOnline (7) &#60;1 applicant&#62;">
+      <bpmn:incoming>Flow_1j8h14v</bpmn:incoming>
+      <bpmn:outgoing>Flow_04ycudq</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_1j8h14v" sourceRef="StartEvent_1azrd1g" targetRef="ApplyOnline" />
+    <bpmn:task id="UploadPassport" name="UploadPassport (1) &#60;1 applicant&#62;">
+      <bpmn:incoming>Flow_04ycudq</bpmn:incoming>
+      <bpmn:outgoing>Flow_1hsahdx</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_04ycudq" sourceRef="ApplyOnline" targetRef="UploadPassport" />
+    <bpmn:task id="EvaluateApplication" name="EvaluateApplication (10) &#60;1 visa_office&#62;">
+      <bpmn:incoming>Flow_1hsahdx</bpmn:incoming>
+      <bpmn:outgoing>Flow_1udidf5</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_1hsahdx" sourceRef="UploadPassport" targetRef="EvaluateApplication" />
+    <bpmn:exclusiveGateway id="Gateway_1173ki2" name="ES1">
+      <bpmn:incoming>Flow_1udidf5</bpmn:incoming>
+      <bpmn:outgoing>Flow_1ag97f1</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0t8nldn</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_1udidf5" sourceRef="EvaluateApplication" targetRef="Gateway_1173ki2" />
+    <bpmn:task id="RejectApplication" name="RejectApplication (1) &#60;1 administration&#62;">
+      <bpmn:incoming>Flow_1ag97f1</bpmn:incoming>
+      <bpmn:outgoing>Flow_18wec50</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_1ag97f1" name="0.1" sourceRef="Gateway_1173ki2" targetRef="RejectApplication" />
+    <bpmn:task id="AcceptApplication" name="AcceptApplication (3) &#60;1 administration&#62;">
+      <bpmn:incoming>Flow_0t8nldn</bpmn:incoming>
+      <bpmn:outgoing>Flow_0m86md9</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_0t8nldn" name="0.9" sourceRef="Gateway_1173ki2" targetRef="AcceptApplication" />
+    <bpmn:exclusiveGateway id="Gateway_0izpm2n" name="EM1">
+      <bpmn:incoming>Flow_18wec50</bpmn:incoming>
+      <bpmn:incoming>Flow_0p94iec</bpmn:incoming>
+      <bpmn:outgoing>Flow_0bdh2pz</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_18wec50" sourceRef="RejectApplication" targetRef="Gateway_0izpm2n" />
+    <bpmn:task id="PayFees" name="PayFees (7) &#60;1 applicant, 1 administration&#62;">
+      <bpmn:incoming>Flow_0m86md9</bpmn:incoming>
+      <bpmn:outgoing>Flow_07gaa8u</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_0m86md9" sourceRef="AcceptApplication" targetRef="PayFees" />
+    <bpmn:task id="PrepareAndDeliverPassport" name="PrepareAndDeliverPassport (10) &#60;1 visa_office&#62;">
+      <bpmn:incoming>Flow_07gaa8u</bpmn:incoming>
+      <bpmn:outgoing>Flow_0p94iec</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_07gaa8u" sourceRef="PayFees" targetRef="PrepareAndDeliverPassport" />
+    <bpmn:sequenceFlow id="Flow_0p94iec" sourceRef="PrepareAndDeliverPassport" targetRef="Gateway_0izpm2n" />
+    <bpmn:endEvent id="Event_0ierfpi">
+      <bpmn:incoming>Flow_0bdh2pz</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0bdh2pz" sourceRef="Gateway_0izpm2n" targetRef="Event_0ierfpi" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1sftwr3">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1azrd1g">
+        <dc:Bounds x="156" y="182" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ApplyOnline_di" bpmnElement="ApplyOnline">
+        <dc:Bounds x="250" y="160" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UploadPassport_di" bpmnElement="UploadPassport">
+        <dc:Bounds x="410" y="160" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EvaluateApplication_di" bpmnElement="EvaluateApplication">
+        <dc:Bounds x="570" y="160" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1173ki2_di" bpmnElement="Gateway_1173ki2" isMarkerVisible="true">
+        <dc:Bounds x="735" y="175" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="830" y="190" width="21" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="RejectApplication_di" bpmnElement="RejectApplication">
+        <dc:Bounds x="850" y="80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="AcceptApplication_di" bpmnElement="AcceptApplication">
+        <dc:Bounds x="850" y="250" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0izpm2n_di" bpmnElement="Gateway_0izpm2n" isMarkerVisible="true">
+        <dc:Bounds x="1385" y="175" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1319" y="190" width="23" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="PayFees_di" bpmnElement="PayFees">
+        <dc:Bounds x="1020" y="250" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="PrepareAndDeliverPassport_di" bpmnElement="PrepareAndDeliverPassport">
+        <dc:Bounds x="1190" y="250" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0ierfpi_di" bpmnElement="Event_0ierfpi">
+        <dc:Bounds x="1532" y="182" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1j8h14v_di" bpmnElement="Flow_1j8h14v">
+        <di:waypoint x="192" y="200" />
+        <di:waypoint x="250" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_04ycudq_di" bpmnElement="Flow_04ycudq">
+        <di:waypoint x="350" y="200" />
+        <di:waypoint x="410" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1hsahdx_di" bpmnElement="Flow_1hsahdx">
+        <di:waypoint x="510" y="200" />
+        <di:waypoint x="570" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1udidf5_di" bpmnElement="Flow_1udidf5">
+        <di:waypoint x="670" y="200" />
+        <di:waypoint x="735" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1ag97f1_di" bpmnElement="Flow_1ag97f1">
+        <di:waypoint x="760" y="175" />
+        <di:waypoint x="760" y="120" />
+        <di:waypoint x="850" y="120" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="767" y="145" width="16" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0t8nldn_di" bpmnElement="Flow_0t8nldn">
+        <di:waypoint x="760" y="225" />
+        <di:waypoint x="760" y="290" />
+        <di:waypoint x="850" y="290" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="767" y="255" width="16" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_18wec50_di" bpmnElement="Flow_18wec50">
+        <di:waypoint x="950" y="120" />
+        <di:waypoint x="1410" y="120" />
+        <di:waypoint x="1410" y="175" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0m86md9_di" bpmnElement="Flow_0m86md9">
+        <di:waypoint x="950" y="290" />
+        <di:waypoint x="1020" y="290" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_07gaa8u_di" bpmnElement="Flow_07gaa8u">
+        <di:waypoint x="1120" y="290" />
+        <di:waypoint x="1190" y="290" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0p94iec_di" bpmnElement="Flow_0p94iec">
+        <di:waypoint x="1290" y="290" />
+        <di:waypoint x="1410" y="290" />
+        <di:waypoint x="1410" y="225" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0bdh2pz_di" bpmnElement="Flow_0bdh2pz">
+        <di:waypoint x="1435" y="200" />
+        <di:waypoint x="1532" y="200" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

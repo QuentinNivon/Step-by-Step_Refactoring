@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_0myyjtg" targetNamespace="http://bpmn.io/schema/bpmn" exporter="bpmn-js (https://demo.bpmn.io)" exporterVersion="14.0.0">
+  <bpmn:process id="Process_0u1i8sl" isExecutable="false">
+    <bpmn:startEvent id="StartEvent_1fg2sgc">
+      <bpmn:outgoing>Flow_09tumfg</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:task id="EvaluateRequest" name="EvaluateRequest (10) &#60;1 nurse&#62;">
+      <bpmn:incoming>Flow_09tumfg</bpmn:incoming>
+      <bpmn:outgoing>Flow_123clrx</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_09tumfg" sourceRef="StartEvent_1fg2sgc" targetRef="EvaluateRequest" />
+    <bpmn:exclusiveGateway id="Gateway_1ld0b6u" name="ES1">
+      <bpmn:incoming>Flow_123clrx</bpmn:incoming>
+      <bpmn:outgoing>Flow_0kx70c3</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1ahh286</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_123clrx" sourceRef="EvaluateRequest" targetRef="Gateway_1ld0b6u" />
+    <bpmn:task id="ExaminePatient" name="ExaminePatient (45) &#60;1 doctor, 1 patient&#62;">
+      <bpmn:incoming>Flow_0kx70c3</bpmn:incoming>
+      <bpmn:outgoing>Flow_1goj3gr</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_0kx70c3" name="0.88" sourceRef="Gateway_1ld0b6u" targetRef="ExaminePatient" />
+    <bpmn:task id="EvaluateHospitalization" name="EvaluateHospitalization (10) &#60;1 patient&#62;">
+      <bpmn:incoming>Flow_1ahh286</bpmn:incoming>
+      <bpmn:outgoing>Flow_0guafxt</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_1ahh286" name="0.12" sourceRef="Gateway_1ld0b6u" targetRef="EvaluateHospitalization" />
+    <bpmn:task id="MakeDiagnostic" name="MakeDiagnostic (10) &#60;1 doctor&#62;">
+      <bpmn:incoming>Flow_1goj3gr</bpmn:incoming>
+      <bpmn:outgoing>Flow_0qngehg</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_1goj3gr" sourceRef="ExaminePatient" targetRef="MakeDiagnostic" />
+    <bpmn:task id="ConductDiagnostic" name="ConductDiagnostic (5) &#60;1 nurse, 1 doctor&#62;">
+      <bpmn:incoming>Flow_0qngehg</bpmn:incoming>
+      <bpmn:outgoing>Flow_0zsxmvc</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_0qngehg" sourceRef="MakeDiagnostic" targetRef="ConductDiagnostic" />
+    <bpmn:exclusiveGateway id="Gateway_0mvw3kx" name="ES2">
+      <bpmn:incoming>Flow_0guafxt</bpmn:incoming>
+      <bpmn:outgoing>Flow_0yjoczf</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1w0jxog</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_0guafxt" sourceRef="EvaluateHospitalization" targetRef="Gateway_0mvw3kx" />
+    <bpmn:task id="PrescribeTherapy" name="PrescribeTherapy (15) &#60;1 doctor&#62;">
+      <bpmn:incoming>Flow_0yjoczf</bpmn:incoming>
+      <bpmn:outgoing>Flow_0r8u8lu</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_0yjoczf" name="0.63" sourceRef="Gateway_0mvw3kx" targetRef="PrescribeTherapy" />
+    <bpmn:task id="TreatExacerbation" name="TreatExacerbation (20) &#60;1 doctor&#62;">
+      <bpmn:incoming>Flow_1w0jxog</bpmn:incoming>
+      <bpmn:outgoing>Flow_1n3teit</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_1w0jxog" name="0.37" sourceRef="Gateway_0mvw3kx" targetRef="TreatExacerbation" />
+    <bpmn:exclusiveGateway id="Gateway_186xf1i" name="EM2">
+      <bpmn:incoming>Flow_0r8u8lu</bpmn:incoming>
+      <bpmn:incoming>Flow_1n3teit</bpmn:incoming>
+      <bpmn:outgoing>Flow_0vcjmqz</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_0r8u8lu" sourceRef="PrescribeTherapy" targetRef="Gateway_186xf1i" />
+    <bpmn:sequenceFlow id="Flow_1n3teit" sourceRef="TreatExacerbation" targetRef="Gateway_186xf1i" />
+    <bpmn:task id="PlanExamination" name="PlanExamination (10) &#60;1 secretary&#62;">
+      <bpmn:incoming>Flow_0vcjmqz</bpmn:incoming>
+      <bpmn:outgoing>Flow_0sw47eb</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_0vcjmqz" sourceRef="Gateway_186xf1i" targetRef="PlanExamination" />
+    <bpmn:sequenceFlow id="Flow_0sw47eb" sourceRef="PlanExamination" targetRef="Gateway_13w4ha6" />
+    <bpmn:exclusiveGateway id="Gateway_13w4ha6" name="EM1">
+      <bpmn:incoming>Flow_0zsxmvc</bpmn:incoming>
+      <bpmn:incoming>Flow_0sw47eb</bpmn:incoming>
+      <bpmn:outgoing>Flow_0ykga8e</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_0zsxmvc" sourceRef="ConductDiagnostic" targetRef="Gateway_13w4ha6" />
+    <bpmn:endEvent id="Event_1leqq17">
+      <bpmn:incoming>Flow_0ykga8e</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0ykga8e" sourceRef="Gateway_13w4ha6" targetRef="Event_1leqq17" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_0u1i8sl">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1fg2sgc">
+        <dc:Bounds x="112" y="222" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EvaluateRequest_di" bpmnElement="EvaluateRequest">
+        <dc:Bounds x="200" y="200" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1ld0b6u_di" bpmnElement="Gateway_1ld0b6u" isMarkerVisible="true">
+        <dc:Bounds x="355" y="215" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="450" y="230" width="21" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ExaminePatient_di" bpmnElement="ExaminePatient">
+        <dc:Bounds x="460" y="80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EvaluateHospitalization_di" bpmnElement="EvaluateHospitalization">
+        <dc:Bounds x="460" y="320" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="MakeDiagnostic_di" bpmnElement="MakeDiagnostic">
+        <dc:Bounds x="620" y="80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ConductDiagnostic_di" bpmnElement="ConductDiagnostic">
+        <dc:Bounds x="780" y="80" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0mvw3kx_di" bpmnElement="Gateway_0mvw3kx" isMarkerVisible="true">
+        <dc:Bounds x="615" y="335" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="710" y="350" width="21" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="PrescribeTherapy_di" bpmnElement="PrescribeTherapy">
+        <dc:Bounds x="720" y="260" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TreatExacerbation_di" bpmnElement="TreatExacerbation">
+        <dc:Bounds x="720" y="380" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_186xf1i_di" bpmnElement="Gateway_186xf1i" isMarkerVisible="true">
+        <dc:Bounds x="875" y="335" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="809" y="350" width="23" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="PlanExamination_di" bpmnElement="PlanExamination">
+        <dc:Bounds x="980" y="320" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_13w4ha6_di" bpmnElement="Gateway_13w4ha6" isMarkerVisible="true">
+        <dc:Bounds x="1305" y="205" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1239" y="220" width="23" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1leqq17_di" bpmnElement="Event_1leqq17">
+        <dc:Bounds x="1422" y="212" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_09tumfg_di" bpmnElement="Flow_09tumfg">
+        <di:waypoint x="148" y="240" />
+        <di:waypoint x="200" y="240" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_123clrx_di" bpmnElement="Flow_123clrx">
+        <di:waypoint x="300" y="240" />
+        <di:waypoint x="355" y="240" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0kx70c3_di" bpmnElement="Flow_0kx70c3">
+        <di:waypoint x="380" y="215" />
+        <di:waypoint x="380" y="120" />
+        <di:waypoint x="460" y="120" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="384" y="165" width="22" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1ahh286_di" bpmnElement="Flow_1ahh286">
+        <di:waypoint x="380" y="265" />
+        <di:waypoint x="380" y="360" />
+        <di:waypoint x="460" y="360" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="384" y="310" width="22" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1goj3gr_di" bpmnElement="Flow_1goj3gr">
+        <di:waypoint x="560" y="120" />
+        <di:waypoint x="620" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0qngehg_di" bpmnElement="Flow_0qngehg">
+        <di:waypoint x="720" y="120" />
+        <di:waypoint x="780" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0guafxt_di" bpmnElement="Flow_0guafxt">
+        <di:waypoint x="560" y="360" />
+        <di:waypoint x="615" y="360" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0yjoczf_di" bpmnElement="Flow_0yjoczf">
+        <di:waypoint x="640" y="335" />
+        <di:waypoint x="640" y="300" />
+        <di:waypoint x="720" y="300" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="644" y="315" width="22" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1w0jxog_di" bpmnElement="Flow_1w0jxog">
+        <di:waypoint x="640" y="385" />
+        <di:waypoint x="640" y="420" />
+        <di:waypoint x="720" y="420" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="644" y="400" width="22" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0r8u8lu_di" bpmnElement="Flow_0r8u8lu">
+        <di:waypoint x="820" y="300" />
+        <di:waypoint x="900" y="300" />
+        <di:waypoint x="900" y="335" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1n3teit_di" bpmnElement="Flow_1n3teit">
+        <di:waypoint x="820" y="420" />
+        <di:waypoint x="900" y="420" />
+        <di:waypoint x="900" y="385" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0vcjmqz_di" bpmnElement="Flow_0vcjmqz">
+        <di:waypoint x="925" y="360" />
+        <di:waypoint x="980" y="360" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0sw47eb_di" bpmnElement="Flow_0sw47eb">
+        <di:waypoint x="1080" y="360" />
+        <di:waypoint x="1330" y="360" />
+        <di:waypoint x="1330" y="255" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0zsxmvc_di" bpmnElement="Flow_0zsxmvc">
+        <di:waypoint x="880" y="120" />
+        <di:waypoint x="1330" y="120" />
+        <di:waypoint x="1330" y="205" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ykga8e_di" bpmnElement="Flow_0ykga8e">
+        <di:waypoint x="1355" y="230" />
+        <di:waypoint x="1422" y="230" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
