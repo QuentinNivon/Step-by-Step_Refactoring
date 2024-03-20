@@ -38,7 +38,7 @@ Server setup
 * Go to the ``src'' folder.
 * Run the ``npx nodemon main.js'' command to start the server.
 * In case of errors, fix them.
-* The server should now [be running locally on port 3003](http://localhost:3003).
+* The server should now [be running locally on port 3000](http://localhost:3000).
 
 Tool usage
 =============================================
