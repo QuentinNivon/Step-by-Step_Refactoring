@@ -26,7 +26,7 @@ conference.
 Required Softwares
 =============================================
 
-* [NodeJS](https://nodejs.org/en/download)
+* [Node.js](https://nodejs.org/en/download)
 * [Java](https://www.java.com/)
 *
 
