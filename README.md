@@ -7,6 +7,22 @@ This code is embedded in a JAR file that is executed in the backend of a NodeJS 
 can run locally.
 To use this tool, one should clone the actual repository on his machine.
 
+Repository hierarchy
+=============================================
+
+* ''EXAMPLES'' folder: contains several handcrafted and real-world examples on which the approach
+can be used.
+
+* ''FORMALISM'' folder: contains the formalism of the notions presented in the paper ''Semi-Automated
+Refactoring of BPMN Processes'' submitted to the [Software Quality, Reliability and Security (QRS) 2024](https://qrs24.techconf.org/)
+conference.
+
+* ''TOOL'' folder: contains the tool that one can download and try locally on his machine.
+
+* ''LICENSE.txt'' file: details the license under which this software is distributed
+
+* ''README.md'' file: presents general information about this repository
+
 Required Softwares
 =============================================
 
@@ -17,18 +33,18 @@ Required Softwares
 Server setup
 =============================================
 
-* Go to the ``TOOL'' folder
-* Run the ``npm install'' command to install all the necessary node modules
-* Go to the ``src'' folder
-* Run the ``npx nodemon main.js'' command to start the server
-* In case of errors, fix them
-* The server should now [be running locally on port 3003](http://localhost:3003)
+* Go to the ``TOOL'' folder.
+* Run the ``npm install'' command to install all the necessary node modules.
+* Go to the ``src'' folder.
+* Run the ``npx nodemon main.js'' command to start the server.
+* In case of errors, fix them.
+* The server should now [be running locally on port 3003](http://localhost:3003).
 
 Tool usage
 =============================================
 
 * The user must first upload the process, and optionally its dependencies and the global information
-of the system
+of the system.
   * BPMN file: Each task of the BPMN process must have a name, a duration, and the list of
 required resources, with the following syntax: ``name (duration) <1 resource_1, 3 resource_2, ...>''.
 Examples can be found in the "EXAMPLES" folder of this project.
@@ -52,18 +68,18 @@ found in the "EXAMPLES" folder of this project.
 * Once selected, these files can be uploaded using the ``Upload'' button, and the original BPMN process
 is rendered on the screen with a proposal concerning the task to move.
 
-* The user can then decide whether he wants to move this particular task or not
+* The user can then decide whether he wants to move this particular task or not.
 
 * If yes, a new process in which this task has been moved is displayed below the previous one, along
-with the AET and the gain of this new process
+with the AET and the gain of this new process.
 
-* If no, a new task is proposed to the user
+* If no, a new task is proposed to the user.
 
 * When a new process is proposed to the user, it can either be accepted or declined by the user.
 
-* If it is accepted, it becomes the main process for the next computations
+* If it is accepted, it becomes the main process for the next computations.
 
-* Otherwise, it is discarded and a new step starts
+* Otherwise, it is discarded and a new step starts.
  
 License
 =============================================
