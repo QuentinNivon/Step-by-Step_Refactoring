@@ -84,4 +84,4 @@ with the AET and the gain of this new process.
 License
 =============================================
 
-This tool is distributed as-is and without warranty of any kind under the [CeCILL license](https://github.com/QuentinNivon/Step-by-Step_Refactoring/tree/main/LICENSE.txt).
+This tool is distributed as-is and without warranty of any kind under the [CeCILL license](https://cecill.info/).
