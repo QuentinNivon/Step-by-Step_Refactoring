@@ -26,9 +26,8 @@ conference.
 Required Softwares
 =============================================
 
-* [Node.js](https://nodejs.org/en/download)
-* [Java](https://www.java.com/)
-*
+* [Java Development Kit v11](https://www.oracle.com/fr/java/technologies/downloads/#java11)
+* [Node.js v21.7.1](https://nodejs.org/en/download)
 
 Server setup
 =============================================
