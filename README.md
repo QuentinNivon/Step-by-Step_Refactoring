@@ -28,6 +28,7 @@ Required Softwares
 
 * [Java Development Kit v11](https://www.oracle.com/fr/java/technologies/downloads/#java11)
 * [Node.js v21.7.1](https://nodejs.org/en/download)
+* [npm v10.5.0](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
 
 Server setup
 =============================================
