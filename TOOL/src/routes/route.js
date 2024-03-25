@@ -8,7 +8,7 @@ const mainController = require(path.resolve("controller", "mainController"));
 const multer = require('multer');
 const BPMN_FILENAME = "original.bpmn";
 const DEPENDENCIES_FILENAME = "dependencies.dep";
-const RESOURCES_FILENAME = "resources.rsp";
+const GLOBAL_INFORMATION_FILENAME = "global_information.inf";
 const upload = multer({
     storage: multer.diskStorage({
         destination: (req, file, cb) => {
@@ -21,13 +21,24 @@ const upload = multer({
                 cb(null, BPMN_FILENAME);
             } else if (file.originalname.endsWith(".dep")) {
                 cb(null, DEPENDENCIES_FILENAME);
-            } else if (file.originalname.endsWith(".rsp") || file.originalname.endsWith(".rp")) {
-                cb(null, RESOURCES_FILENAME);
+            } else if (file.originalname.endsWith(".inf")) {
+                cb(null, GLOBAL_INFORMATION_FILENAME);
             } else {
-                cb(null, false)
+                cb(null, "RANDOM_ERROR_FILE") //Should never happen thanks to fileFilter
             }
         }
-    })
+		
+    }),
+	fileFilter: (req, file, cb) => {
+		console.log(file.originalname);
+		if (!file.originalname.endsWith(".bpmn")
+			&& !file.originalname.endsWith(".dep")
+			&& !file.originalname.endsWith(".inf")) {
+			return cb(new Error("Unknown file \"" + file.originalname + "\"!"), false);
+		}
+		
+		cb(null, true);
+	}
 });
 
 //Function used to update the global variable ``date'' to the current date

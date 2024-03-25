@@ -314,7 +314,7 @@ async function updateInformation(workingDirectory, agreement, callback){
     //Write the modified JSON object at the end of the file
     var stream = fs.createWriteStream(infoFilePath, {flags:'a'});
     stream.write(JSON.stringify(jsonObject) + '\n', function(error){
-        if (!error) {
+        if (!error){
             callback(0);
         } else {
             callback('An error occurred: ' + JSON.stringify(error));

@@ -1,73 +1,75 @@
-#api_key_tv {
-  margin-top: 10px;
-  /*margin-bottom: 100px;
-  margin-right: 150px;*/
-  margin-left: 20px;
-  height: 50px;
-  font-size: 30px;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-#canvas1 {
-  margin-left: 20px;
-  margin-top: 40px;
-  height: 450px;
-  width: 98%;
-  border: 1px solid black; 
+
+#download_bt {
+
   display: none;
 }
 
-#moveTaskText {
+#satisfaction_tv {
+ 
   display: none;
 }
 
-#acceptTask {
-  display:none
-}
 
-#declineTask {
+
+#satisfaction_range {
+
   display: none;
 }
 
-#canvas2 {
-  margin-left: 20px;
-  margin-top: 40px;
-  height: 450px;
-  width: 98%;
-  border: 1px solid black;
+#satisfaction_range_tv {
+ 
   display: none;
 }
 
-#gainText {
+#satisfaction_value {
+
   display: none;
 }
 
-#acceptProcessText {
+#ok_bt {
+
   display: none;
 }
 
-#acceptProcess {
-  display: none;
+#acceptTask,#declineTask, .to-hide{
+  
+    display: none;
+}
+.djs-palette, .djs-overlay-container {
+  display: none !important;
 }
 
-#declineProcess {
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
   display: none;
+  z-index: 1000; 
 }
 
 .loader {
-  border: 16px solid #f3f3f3; /* Light grey */
-  border-top: 16px solid #3498db; /* Blue */
+  border: 16px solid #f3f3f3;
   border-radius: 50%;
-  width: 120px;
-  height: 120px;
+  border-top: 16px solid #2943a4;
+  width: 140px;
+  height: 140px;
   animation: spin 2s linear infinite;
-  margin-left: 900px;
-  margin-top: 200px;
-  z-index: 100000;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: none;
-  position: absolute;
+  z-index: 1001; /* Asegura que el loader esté sobre el overlay */
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
 }
