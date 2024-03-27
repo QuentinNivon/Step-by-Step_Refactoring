@@ -216,9 +216,7 @@
         sessionStorage.setItem('originalProcessSubPath', resultat["originalProcessSubPath"]);
         processesArray = [resultat["originalProcessSubPath"]]
         sessionStorage.setItem('processesArray', JSON.stringify(processesArray));
-       
-        await showDiagram(processesArray[0], 1);
-
+      
         const info = {
                 field1: sessionStorage.getItem('workingDirectoryExtension'),
                 field2: sessionStorage.getItem('workingDirectory')
@@ -232,6 +230,7 @@
                 alert("The computation of the task encountered an unexpected error:\n\n" + error);
                 fullReset();
             } else {
+                showDiagram(processesArray[0], 1);
                 const electedTask = result['electedTask'];
                 document.getElementById('moveTaskText').innerText = "Do you agree moving task \"" + electedTask + "\"?";
                 $(document.getElementById('moveTaskText')).show();
@@ -322,6 +321,8 @@
                 } else {
                     const aetGain = result['aetGain'];
                     const percentageGain = result['percentageGain'];
+                    const oldAET = result['oldAET'];
+                    const newAET = result['newAET'];
                     const bpmnFilePath = result['bpmnFilePath'];
 
                     processesArray = JSON.parse(sessionStorage.getItem('processesArray'));
@@ -340,7 +341,8 @@
                     document.getElementById('moveTaskText').innerText = "Task moved successfully!";
 
                     showDiagram(bpmnFilePath, 2);
-                    document.getElementById('gainText').innerHTML = "<b>GAIN: " + aetGain + "UT/" + percentageGain + "%</b>"
+                    //document.getElementById('gainText').innerHTML = "<b>GAIN: " + aetGain + "UT/" + percentageGain + "%</b>"
+                    document.getElementById('gainText').innerHTML = "<b>Previous AET: " + oldAET + "UT / New AET: " + newAET + "UT (Gain " + aetGain + "UT/" + percentageGain + "%)</b>"
                 }
             });
         });
@@ -364,6 +366,11 @@
                     const error = result['msg'];
                     alert("The computation of the new task encountered an unexpected error:\n\n" + error);
                 } else {
+                    document.getElementById('canvas1').innerHTML = "";
+                    processesArray = JSON.parse(sessionStorage.getItem('processesArray'));
+                    lastFile = processesArray[processesArray.length - 1];
+                    showDiagram(lastFile, 1);                    
+
                     const electedTask = result['electedTask'];
                     document.getElementById('moveTaskText').innerText = "Do you agree moving task \"" + electedTask + "\"?";
                     $(document.getElementById('moveTaskText')).show();
@@ -395,7 +402,6 @@
 
             processesArray = JSON.parse(sessionStorage.getItem('processesArray'));
             lastFile = processesArray[processesArray.length - 1];
-            showDiagram(lastFile, 1);
 
             $.post("/acceptProcess", info, function(result){
                 const retVal = result['retVal'];
@@ -404,6 +410,7 @@
                     const error = result['msg'];
                     alert("The computation of the new task encountered an unexpected error:\n\n" + error);
                 } else {
+                    showDiagram(lastFile, 1);
                     const electedTask = result['electedTask'];
 
                     if (electedTask === "") {
@@ -443,7 +450,6 @@
             processesArray = JSON.parse(sessionStorage.getItem('processesArray'));
             fileToRemove = processesArray.pop();
             previousFile = processesArray[processesArray.length - 1];
-            showDiagram(previousFile, 1);
             sessionStorage.setItem('processesArray', JSON.stringify(processesArray));
 
             //alert(JSON.stringify(processesArray));
@@ -455,6 +461,7 @@
                     const error = result['msg'];
                     alert("The computation of the new task encountered an unexpected error:\n\n" + error);
                 } else {
+                    showDiagram(previousFile, 1);
                     const electedTask = result['electedTask'];
                     document.getElementById('moveTaskText').innerText = "Do you agree moving task \"" + electedTask + "\"?";
                     $(document.getElementById('moveTaskText')).show();

@@ -53,20 +53,28 @@ const acceptTask = async function(req, res) {
             //Otherwise, read the information about the proposed process from the information file and send it to the client
             getLastLine(workingDirectory, function(jsonObject){
                 const aetGain = jsonObject[GAIN_FIELD];
+                const newAET = jsonObject[AET_FIELD];
+                const oldAET = newAET + aetGain;
                 const percentageGain = aetGain / (aetGain + jsonObject[AET_FIELD]) * 100;
                 const bpmnFilename = jsonObject[BPMN_FILENAME_FIELD];
                 const bpmnFilePath = "http://localhost:3000/" + path.join("refactoring", dirExtension, bpmnFilename);
                 const roundedPercentage = Math.round((percentageGain + Number.EPSILON) * 100) / 100;
-                const roundedAET = Math.round((aetGain + Number.EPSILON) * 100) / 100;
+                const roundedGain = Math.round((aetGain + Number.EPSILON) * 100) / 100;
+                const roundedNewAET = Math.round((newAET + Number.EPSILON) * 100) / 100;
+                const roundedOldAET = Math.round((oldAET + Number.EPSILON) * 100) / 100;
                 
                 console.log("Percentage gain: " + roundedPercentage);
-                console.log("AET gain: " + roundedAET);
+                console.log("AET gain: " + roundedGain);
+                console.log("Old AET: " + roundedOldAET);
+                console.log("New AET: " + roundedNewAET);
                 console.log("BPMN file name: " + bpmnFilename);
                 console.log("BPMN file path: " + bpmnFilePath);    
 
-                returnValue['aetGain'] = roundedAET;
+                returnValue['aetGain'] = roundedGain;
                 returnValue['percentageGain'] = roundedPercentage;
                 returnValue['bpmnFilePath'] = bpmnFilePath;
+                returnValue['oldAET'] = roundedOldAET;
+                returnValue['newAET'] = roundedNewAET;
                 res.send(returnValue);
             });
         } else {
